@@ -52,7 +52,7 @@ function Add({ students, setStudents, setIsAdding, handleTotalAdd}) {
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "roll no. already exist",
+        text: "This Roll Number already exist!!",
         showConfirmButton: true,
       });
     }
@@ -96,7 +96,7 @@ function Add({ students, setStudents, setIsAdding, handleTotalAdd}) {
                 return Swal.fire({
                   icon: "error",
                   title: "Error!",
-                  text: "roll no. Cannot be negative",
+                  text: "Roll Number cannot be negative",
                   showConfirmButton: true,
                 });
             }

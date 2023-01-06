@@ -7,6 +7,7 @@ import Add from './Add';
 import Edit from './Edit';
 
 import { studentsData} from '../../data';
+import TotalStudent from './TotalStudent';
 
 
 function Dashboard() {
@@ -70,8 +71,9 @@ function Dashboard() {
 
         {!isAdding && !isEditing && (
           <>
-            <h1>Current Students in Class are {total}</h1>
+            {/* <h1>Current Students in Class are {total}</h1> */}
             <Header setIsAdding={setIsAdding} />
+            <TotalStudent total={total}/>
             <List
               students={students}
               handleEdit={handleEdit}
