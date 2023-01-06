@@ -15,4 +15,4 @@ Local storage is also enabled.
 
 
 DEPLOYMENT:
-This project is deployed in netlify server
+This project is deployed in netlify server https://sonalsinghstudentattendancesystem.netlify.app/
