@@ -11,10 +11,24 @@ import { studentsData} from '../../data';
 
 function Dashboard() {
 
-    const [students, setStudents] = useState(studentsData);
+    //const [students, setStudents] = useState(studentsData);
     const [selectedStudents, setSelectedStudents] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [total, setTotal] = useState(0);
+    
+    let stud;
+    if (localStorage.getItem("students") === null) {
+       stud = [];
+    } else {
+       stud = JSON.parse(localStorage.getItem("students"));
+    }
+    const [students, setStudents] = useState(stud);
+
+    const handleTotalAdd = (counter) =>{
+        setTotal(students.length - counter);
+       // console.log(total , " in index" ,students.length);
+    }
 
     const handleEdit = (id) => {
         const [student] = students.filter(student => student.id === id);
@@ -42,47 +56,51 @@ function Dashboard() {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-
                 setStudents(students.filter(student =>student.id !== id));
+                console.log(students, " in index");
+                // handleTotalAdd();
             }
         });
     }
 
 
     return (
-        <div className='container'>
-            {/* List */}
-            {!isAdding && !isEditing && (
-                <>
-                    <Header
-                        setIsAdding={setIsAdding}
-                    />
-                    <List
-                        students={students}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                    />
-                </>
-            )}
-            {/* Add */}
-            {isAdding && (
-                <Add
-                    students={students}
-                    setStudents={setStudents}
-                    setIsAdding={setIsAdding}
-                />
-            )}
-            {/* Edit */}
-            {isEditing && (
-                <Edit
-                    students={students}
-                    selectedStudents={selectedStudents}
-                    setStudents={setStudents}
-                    setIsEditing={setIsEditing}
-                />
-            )}
-        </div>
-    )
+      <div className="container">
+        {/* List */}
+
+        {!isAdding && !isEditing && (
+          <>
+            <h1>Current Students in Class are {total}</h1>
+            <Header setIsAdding={setIsAdding} />
+            <List
+              students={students}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+              handleTotalAdd={handleTotalAdd}
+            />
+          </>
+        )}
+
+        {/* Add */}
+        {isAdding && (
+          <Add
+            students={students}
+            setStudents={setStudents}
+            setIsAdding={setIsAdding}
+            handleTotalAdd={handleTotalAdd}
+          />
+        )}
+        {/* Edit */}
+        {isEditing && (
+          <Edit
+            students={students}
+            selectedStudents={selectedStudents}
+            setStudents={setStudents}
+            setIsEditing={setIsEditing}
+          />
+        )}
+      </div>
+    );
 }
 
 export default Dashboard;
